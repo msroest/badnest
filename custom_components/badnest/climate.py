@@ -146,7 +146,7 @@ class NestClimate(ClimateDevice):
     @property
     def current_temperature(self):
         """Return the current temperature."""
-        return self.device.device_data[self.device_id]['current_temperature']
+        return round(round(self.device.device_data[self.device_id]['current_temperature']*2)/2,1)
 
     @property
     def current_humidity(self):
@@ -175,7 +175,7 @@ class NestClimate(ClimateDevice):
                 != NEST_MODE_HEAT_COOL \
                 and not self.device.device_data[self.device_id]['eco']:
             return \
-                self.device.device_data[self.device_id]['target_temperature']
+                round(round(self.device.device_data[self.device_id]['target_temperature']*2)/2,1)
         return None
 
     @property
@@ -185,8 +185,8 @@ class NestClimate(ClimateDevice):
                 == NEST_MODE_HEAT_COOL \
                 and not self.device.device_data[self.device_id]['eco']:
             return \
-                self.device. \
-                device_data[self.device_id]['target_temperature_high']
+                round(round(self.device. \
+                device_data[self.device_id]['target_temperature_high']*2)/2,1)
         return None
 
     @property
@@ -196,8 +196,8 @@ class NestClimate(ClimateDevice):
                 == NEST_MODE_HEAT_COOL \
                 and not self.device.device_data[self.device_id]['eco']:
             return \
-                self.device. \
-                device_data[self.device_id]['target_temperature_low']
+                round(round(self.device. \
+                device_data[self.device_id]['target_temperature_low']*2)/2,1)
         return None
 
     @property
