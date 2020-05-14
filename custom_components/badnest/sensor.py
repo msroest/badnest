@@ -89,11 +89,11 @@ class NestTemperatureSensor(Entity):
         maxBattery = 4.0
         zeroBattery = 3.6
         curBattery = float(self.device.device_data[self.device_id]['battery_level'])
-        resBattery = round(((curBattery - zeroBattery)/(maxBattery-zeroBattery))*100,2)
-        if resBattery < 0.0:
-          resBattery = 0.0
-        if resBattery > 100.0:
-          resBattery = 100.0
+        resBattery = round(((curBattery - zeroBattery)/(maxBattery-zeroBattery))*100)
+        if resBattery < 0:
+          resBattery = 0
+        if resBattery > 100:
+          resBattery = 100
         return {
             ATTR_BATTERY_LEVEL: resBattery
         }
