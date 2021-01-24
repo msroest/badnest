@@ -67,7 +67,7 @@ class NestTemperatureSensor(Entity):
     @property
     def state(self):
         """Return the state of the sensor."""
-        return self.device.device_data[self.device_id]['temperature']
+        return round(round(self.device.device_data[self.device_id]['temperature']*2)/2,1)
 
     @property
     def device_class(self):
@@ -86,9 +86,16 @@ class NestTemperatureSensor(Entity):
     @property
     def device_state_attributes(self):
         """Return the state attributes."""
+        maxBattery = 4.0
+        zeroBattery = 3.6
+        curBattery = float(self.device.device_data[self.device_id]['battery_level'])
+        resBattery = round(((curBattery - zeroBattery)/(maxBattery-zeroBattery))*100)
+        if resBattery < 0:
+          resBattery = 0
+        if resBattery > 100:
+          resBattery = 100
         return {
-            ATTR_BATTERY_LEVEL:
-                self.device.device_data[self.device_id]['battery_level']
+            ATTR_BATTERY_LEVEL: resBattery
         }
 
 
